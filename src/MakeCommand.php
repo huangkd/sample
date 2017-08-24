@@ -52,8 +52,8 @@ class MakeCommand extends Command
             ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'The name of the virtual machine.', $this->defaultName)
             ->addOption('hostname', null, InputOption::VALUE_OPTIONAL, 'The hostname of the virtual machine.', $this->defaultName)
             ->addOption('ip', null, InputOption::VALUE_OPTIONAL, 'The IP address of the virtual machine.')
-            ->addOption('after', null, InputOption::VALUE_NONE, 'Determines if the after.sh file is created.')
-            ->addOption('aliases', null, InputOption::VALUE_NONE, 'Determines if the aliases file is created.')
+            ->addOption('no-after', null, InputOption::VALUE_NONE, 'Determines if the after.sh file is not created.')
+            ->addOption('no-aliases', null, InputOption::VALUE_NONE, 'Determines if the aliases file is not created.')
             ->addOption('example', null, InputOption::VALUE_NONE, 'Determines if a Homestead example file is created.')
             ->addOption('json', null, InputOption::VALUE_NONE, 'Determines if the Homestead settings file will be in json format.');
     }
@@ -71,11 +71,11 @@ class MakeCommand extends Command
             $this->createVagrantfile();
         }
 
-        if ($input->getOption('aliases') && ! $this->aliasesFileExists()) {
+        if (! $input->getOption('no-aliases') && ! $this->aliasesFileExists()) {
             $this->createAliasesFile();
         }
 
-        if ($input->getOption('after') && ! $this->afterShellScriptExists()) {
+        if (! $input->getOption('no-after') && ! $this->afterShellScriptExists()) {
             $this->createAfterShellScript();
         }
 
@@ -99,6 +99,16 @@ class MakeCommand extends Command
     }
 
     /**
+     * Determines if Homestead has been installed "per project".
+     *
+     * @return bool
+     */
+    protected function isPerProjectInstallation()
+    {
+        return (bool) preg_match('/vendor\/laravel\/homestead/', __DIR__);
+    }
+
+    /**
      * Determine if the Vagrantfile exists.
      *
      * @return bool
@@ -115,7 +125,7 @@ class MakeCommand extends Command
      */
     protected function createVagrantfile()
     {
-        copy(__DIR__.'/../resources/LocalizedVagrantfile', "{$this->basePath}/Vagrantfile");
+        copy(__DIR__.'/../resources/localized/Vagrantfile', "{$this->basePath}/Vagrantfile");
     }
 
     /**
@@ -135,7 +145,11 @@ class MakeCommand extends Command
      */
     protected function createAliasesFile()
     {
-        copy(__DIR__.'/../resources/aliases', "{$this->basePath}/aliases");
+        if ($this->isPerProjectInstallation()) {
+            copy(__DIR__.'/../resources/localized/aliases', "{$this->basePath}/aliases");
+        } else {
+            copy(__DIR__.'/../resources/aliases', "{$this->basePath}/aliases");
+        }
     }
 
     /**

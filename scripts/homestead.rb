@@ -111,11 +111,20 @@ class Homestead
 
         # Copy The SSH Private Keys To The Box
         if settings.include? 'keys'
+            if settings["keys"].to_s.length == 0
+                puts "Check your Homestead.yaml file, you have no private key(s) specified."
+                exit
+            end
             settings["keys"].each do |key|
-                config.vm.provision "shell" do |s|
-                    s.privileged = false
-                    s.inline = "echo \"$1\" > /home/vagrant/.ssh/$2 && chmod 600 /home/vagrant/.ssh/$2"
-                    s.args = [File.read(File.expand_path(key)), key.split('/').last]
+                if File.exists? File.expand_path(key)
+                    config.vm.provision "shell" do |s|
+                        s.privileged = false
+                        s.inline = "echo \"$1\" > /home/vagrant/.ssh/$2 && chmod 600 /home/vagrant/.ssh/$2"
+                        s.args = [File.read(File.expand_path(key)), key.split('/').last]
+                    end
+                else
+                    puts "Check your Homestead.yaml file, the path to your private key does not exist."
+                    exit
                 end
             end
         end
@@ -185,8 +194,15 @@ class Homestead
 
                 config.vm.provision "shell" do |s|
                     s.name = "Creating Site: " + site["map"]
+                    if site.include? 'params'
+                        params = "("
+                        site["params"].each do |param|
+                            params += " [" + param["key"] + "]=" + param["value"]
+                        end
+                        params += " )"
+                    end
                     s.path = scriptDir + "/serve-#{type}.sh"
-                    s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443"]
+                    s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443", params ||= ""]
                 end
 
                 # Configure The Cron Schedule
@@ -231,6 +247,13 @@ class Homestead
             end
         end
 
+        # Install CouchDB If Necessary
+        if settings.has_key?("couchdb") && settings["couchdb"]
+            config.vm.provision "shell" do |s|
+                s.path = scriptDir + "/install-couch.sh"
+            end
+        end
+
         # Configure All Of The Configured Databases
         if settings.has_key?("databases")
             settings["databases"].each do |db|
@@ -250,6 +273,14 @@ class Homestead
                     config.vm.provision "shell" do |s|
                         s.name = "Creating Mongo Database: " + db
                         s.path = scriptDir + "/create-mongo.sh"
+                        s.args = [db]
+                    end
+                end
+
+                if settings.has_key?("couchdb") && settings["couchdb"]
+                    config.vm.provision "shell" do |s|
+                        s.name = "Creating Couch Database: " + db
+                        s.path = scriptDir + "/create-couch.sh"
                         s.args = [db]
                     end
                 end
