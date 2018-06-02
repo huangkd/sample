@@ -1,0 +1,6 @@
+{
+    "require": {
+        "arcanedev/laravel-lang": "~3.0",
+        "ablunier/laravel-lang-installer": "^1.1"
+    }
+}

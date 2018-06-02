@@ -1,0 +1,32 @@
+{
+  "name": "ablunier/laravel-lang-installer",
+  "description": "Command for easily add languages to a Laravel project",
+  "keywords": [
+    "laravel",
+    "translation",
+    "languages"
+  ],
+  "authors": [
+    {
+      "name": "Adrian P. Blunier",
+      "email": "adrian.blunier@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ablunier\\Laravel\\Translation\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ablunier\\Laravel\\Translation\\LanguageInstallerServiceProvider"
+      ]
+    }
+  }
+}
