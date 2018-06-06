@@ -23,6 +23,12 @@
                         <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                     </div>
 
+                    <!--《7.5章 -->
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="remember"> 记住我</label>
+                    </div>
+                    <!-- 7.5章》-->
+
                     <button type="submit" class="btn btn-primary">登录</button>
                 </form>
 
