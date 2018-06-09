@@ -14,6 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        // 第8.3章 权限系统-用户只能编辑自己的资料
+        \App\Models\User::class  => \App\Policies\UserPolicy::class,
     ];
 
     /**

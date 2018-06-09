@@ -8,6 +8,13 @@ use Auth;
 
 class SessionsController extends Controller
 {
+    //第8.3章 权限系统-﻿注册与登录页面访问限制
+    public function __construct()
+    {
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
     public function create()
     {
         return view('sessions.create');
@@ -23,7 +30,10 @@ class SessionsController extends Controller
         //if (Auth::attempt($credentials)) 第7.5章
         if (Auth::attempt($credentials, $request->has('remember'))) {
             session()->flash('success', '欢迎回来！');
-            return redirect()->route('users.show', [Auth::user()]);
+            // 第8.3章 权限系统-友好的转向
+            return redirect()->intended(route('users.show', [Auth::user()]));
+            // 第8.3章 权限系统-友好的转向
+            // return redirect()->route('users.show', [Auth::user()]);
         } else {
             session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
             return redirect()->back();

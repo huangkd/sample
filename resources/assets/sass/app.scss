@@ -7,6 +7,7 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "/Users/huangkandi/Code/sample/node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 $navbar-color: #3c3e42;
 
@@ -177,5 +178,37 @@ input {
 
 .panel {
   margin-top: 50px;
+}
+
+/* Users edit */
+/* 第8.2章 更新用户-编辑表单 */
+.gravatar_edit {
+  margin: 15px auto;
+  text-align: center;
+  .gravatar {
+    float: none;
+    max-width: 100px;
+  }
+}
+
+// 第8.4章 列出所有用户-用户列表
+/* Users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+// 第8.5章 删除用户-Destroy 动作
+.delete-btn {
+  float: right;
+  position: relative;
+  right: 0;
 }
 
