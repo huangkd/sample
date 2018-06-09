@@ -34,6 +34,8 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'email' => $faker->safeEmail,
         //第8.5章 删除用户-管理员，将字段 is_admin 设置为 false
         'is_admin' => false,
+        //第9.2章 账户激活-生成令牌，将所有用户默认为激活状态
+        'activated' => true,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
         'created_at' => $date_time,

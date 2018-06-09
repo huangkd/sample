@@ -27,6 +27,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    //第9.2章 账户激活-生成令牌
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->activation_token = str_random(30);
+        });
+    }
+
     public function gravatar($size = '100')
     {
     $hash = md5(strtolower(trim($this->attributes['email'])));

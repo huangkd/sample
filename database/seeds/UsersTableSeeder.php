@@ -23,6 +23,8 @@ class UsersTableSeeder extends Seeder
         $user->password = bcrypt('password');
         // 第8.5章 删除用户-管理员 将第一个用户指定为管理员
         $user->is_admin = true;
+        //第9.2章 账户激活-生成令牌 设置第一个用户为激活状态
+        $user->activated = true;
         $user->save();
     }
 }
