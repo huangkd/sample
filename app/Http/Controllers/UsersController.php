@@ -135,15 +135,22 @@ class UsersController extends Controller
     {
         $view = 'emails.confirm';
         $data = compact('user');
-        $from = 'aufree@yousails.com';
+        // $from = 'aufree@yousails.com'; 第9.4章 在生产环境中发送邮件-历史遗留问题
         $name = 'Aufree';
         $to = $user->email;
         $subject = "感谢注册 Sample 应用！请确认你的邮箱。";
 
+        /* 第9.4章 在生产环境中发送邮件-历史遗留问题
         Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
             $message->from($from, $name)->to($to)->subject($subject);
         });
+        */
+        // 第9.4章 在生产环境中发送邮件-历史遗留问题
+        Mail::send($view, $data, function ($message) use ($to, $subject) {
+            $message->to($to)->subject($subject);
+        });
     }
+
 
     //第9.2章 账户激活-激活功能
     public function confirmEmail($token)

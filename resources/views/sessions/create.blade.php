@@ -18,10 +18,19 @@
                         <input type="text" name="email" class="form-control" value="{{ old('email') }}">
                     </div>
 
+                    <!--【第9.3章 密码重设-资源
                     <div class="form-group">
                         <label for="password">密码：</label>
                         <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                     </div>
+                    -->
+
+                    <!--【第9.3章 密码重设-资源 -->
+                    <div class="form-group">
+                        <label for="password">密码（<a href="{{ route('password.request') }}">忘记密码</a>）：</label>
+                        <input type="password" name="password" class="form-control" value="{{ old('password') }}">
+                    </div>
+                    <!-- 第9.3章 密码重设-资源】 -->
 
                     <!--《7.5章 -->
                     <div class="checkbox">

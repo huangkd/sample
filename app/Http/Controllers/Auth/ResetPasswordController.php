@@ -25,8 +25,10 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
+    /* 第9.3章 密码重设-重置密码表单
+     protected $redirectTo = '/home';
+    */
+    protected $redirectTo = '/';
     /**
      * Create a new controller instance.
      *
