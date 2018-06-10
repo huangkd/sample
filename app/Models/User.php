@@ -49,4 +49,17 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPassword($token));
     }
+
+    //第10.2章 显示微博-微博模型
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
+    //第10.4章 微博相关操作-动态流原型 取出当前用户已经发布的所有微博，按产生日期倒序
+    public function feed()
+    {
+        return $this->statuses()
+            ->orderBy('created_at', 'desc');
+    }
 }

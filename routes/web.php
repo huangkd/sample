@@ -20,3 +20,6 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 //第9.3章 密码重设】
+
+//第10.4章 微博相关的操作-微博相关的操作 使用 only 指定生成 store 和 destroy 两个动作的路由
+Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
