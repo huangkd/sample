@@ -8545,6 +8545,8 @@ input {
   max-width: 100px;
 }
 
+/* 第8.4章 列出所有用户-用户列表*/
+
 /* Users index */
 
 .users {
@@ -8559,11 +8561,15 @@ input {
   border-bottom: 1px solid #eeeeee;
 }
 
+/* 第8.5章 删除用户-Destroy 动作*/
+
 .delete-btn {
   float: right;
   position: relative;
   right: 0;
 }
+
+/* 第10.3章 显示微博-渲染微博*/
 
 /* statuses */
 
@@ -8620,4 +8626,64 @@ aside textarea {
 .status_form {
   margin-top: 20px;
 }
+
+/*【第11.3章 ﻿关注用户的网页界面-﻿『关注的人』列表页面和『粉丝』列表页面*/
+
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+}
+
+.stats a {
+  float: left;
+  padding: 0 10px;
+  text-align: center;
+  width: 33%;
+  border-left: 1px solid #eeeeee;
+  color: blue;
+}
+
+.stats a:first-child {
+  padding-left: 0;
+  border: 0;
+}
+
+.stats a:hover {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.2em;
+  color: black;
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+}
+
+.user_avatars .gravatar {
+  margin: 1px 1px;
+}
+
+.user_avatars a {
+  padding: 0;
+}
+
+.users.follow {
+  padding: 0;
+}
+
+/* forms */
+
+#follow_form button {
+  margin: 0 auto;
+  display: block;
+  margin-top: 25px;
+}
+
+/*第11.3章 ﻿关注用户的网页界面-﻿『关注的人』列表页面和『粉丝』列表页面】*/
 

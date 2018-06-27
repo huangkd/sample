@@ -15,9 +15,13 @@
                 </div>
                 <aside class="col-md-4">
                     <section class="user_info">
-                    @include('shared._user_info', ['user' => Auth::user()])
-                </section>
-            </aside>
+                        @include('shared._user_info', ['user' => Auth::user()])
+                    </section>
+                    <!--第11.3章 ﻿关注用户的网页界面-﻿『关注的人』列表页面和『粉丝』列表页面-->
+                    <section class="stats">
+                        @include('shared._stats', ['user' => Auth::user()])
+                    </section>
+                </aside>
         </div>
     @else <!-- 第10.4章 微博相关的操作-创建微博】 -->
         <div class="jumbotron">

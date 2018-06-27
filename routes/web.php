@@ -23,3 +23,13 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 //第10.4章 微博相关的操作-微博相关的操作 使用 only 指定生成 store 和 destroy 两个动作的路由
 Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
+
+//【第11.3章 ﻿关注用户的网页界面-﻿『关注的人』列表页面和『粉丝』列表页面
+Route::get('/users/{user}/followings', 'UsersController@followings')->name('users.followings');
+Route::get('/users/{user}/followers', 'UsersController@followers')->name('users.followers');
+//第11.3章 ﻿关注用户的网页界面-﻿『关注的人』列表页面和『粉丝』列表页面】
+
+//【第11.3章 ﻿关注用户的网页界面-﻿﻿关注表单, 添加路由
+Route::post('/users/followers/{user}', 'FollowersController@store')->name('followers.store');
+Route::delete('/users/followers/{user}', 'FollowersController@destroy')->name('followers.destroy');
+// 第11.3章 ﻿关注用户的网页界面-﻿﻿关注表单, 添加路由】
